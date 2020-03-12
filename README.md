@@ -3,11 +3,11 @@
 ## 资料
 [Spring 文档](https://spring.io/guides)  
 [Spring web 文档](https://spring.io/guides/gs/serving-web-content/)  
-[Spring boot 官方文档](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/)
+[Spring boot 官方文档](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/)  
 [Github 登录文档](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)  
 [Bootstrap 文档](https://v3.bootcss.com/components/)  
-[okHttp 文档](https://square.github.io/okhttp/) 
-[mybatis 文档](http://mybatis.org/spring/) 
+[okHttp 文档](https://square.github.io/okhttp/)  
+[mybatis 文档](http://mybatis.org/spring/)  
 
 ## 脚本
 
@@ -23,6 +23,4 @@ create table USER
 	constraint USER_PK
 		primary key (ID)
 );
-
-
 ```
