@@ -8,6 +8,7 @@
 [Bootstrap 文档](https://v3.bootcss.com/components/)  
 [okHttp 文档](https://square.github.io/okhttp/)  
 [mybatis 文档](http://mybatis.org/spring/)  
+[lombok 官网](https://projectlombok.org/)
 
 ## 脚本
 
@@ -23,6 +24,8 @@ create table USER
 	constraint USER_PK
 		primary key (ID)
 );
+alter table USER
+	add avatar_url varchar(100);
 
 create table publish(
     id BIGINT primary key auto_increment,

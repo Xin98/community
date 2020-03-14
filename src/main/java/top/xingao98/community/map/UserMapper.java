@@ -13,10 +13,10 @@ import top.xingao98.community.model.User;
 @Repository
 @Mapper
 public interface UserMapper {
-    @Insert("INSERT INTO USER (ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED) VALUES (#{accountId}, #{name}, #{token}, #{gmtCreate}, #{gmtModified})")
+    @Insert("insert into user (account_id, name, token, gmt_create, gmt_modified, avatar_url) values (#{accountId}, #{name}, #{token}, #{gmtCreate}, #{gmtModified}, #{avatarUrl})")
     void insertUser(User user);
 
-    @Select("SELECT * FROM USER WHERE TOKEN = #{token}")
+    @Select("select * from user where token = #{token}")
     User findByToken(@Param("token") String token);
 
 }

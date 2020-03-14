@@ -1,12 +1,12 @@
 package top.xingao98.community.provider;
 
+import com.alibaba.fastjson.JSON;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import top.xingao98.community.dto.AccessTokenDTO;
+import top.xingao98.community.dto.GithubUser;
 
 import java.io.IOException;
-import com.alibaba.fastjson.JSON;
-import top.xingao98.community.dto.GithubUser;
 
 /**
  * Created by xinGao 2020/3/10
