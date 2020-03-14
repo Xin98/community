@@ -1,0 +1,17 @@
+body{
+    background: #efefef;
+}
+.main{
+    margin: 30px;
+    background: white;
+}
+.btn-publish{
+    float: right;
+    margin-bottom: 15px;
+}
+.tips{
+    color: white;
+    background: red;
+    border: #ce8483;
+    border-width: 2px;
+}

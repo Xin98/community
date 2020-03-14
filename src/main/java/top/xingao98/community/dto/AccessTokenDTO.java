@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 /**
  * Created by xinGao 2020/3/10
  */
-@Component
 public class AccessTokenDTO {
     private String client_id;
     private String client_secret;

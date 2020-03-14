@@ -14,7 +14,7 @@
 ```sql
 create table USER
 (
-	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_819E9CB8_C3FE_4A25_BDCE_A887060C24C7" auto_increment,
+	ID INTEGER primary key auto_increment,
 	ACCOUNT_ID VARCHAR(100),
 	NAME VARCHAR(50),
 	TOKEN CHAR(36),
@@ -22,5 +22,21 @@ create table USER
 	GMT_MODIFIED BIGINT,
 	constraint USER_PK
 		primary key (ID)
+);
+
+create table publish(
+    id BIGINT primary key auto_increment,
+    creater_id varchar(100),
+    title varchar(50),
+    detail text,
+    tag varchar(256),
+    view_count int default 0,
+    read_count int default 0,
+    comment_count int default 0,
+    like_count int default 0,
+    dislike_count int default 0,
+    stars int default 0,
+    gmt_create bigint,
+    gmt_modified bigint
 );
 ```
