@@ -1,7 +1,6 @@
 package top.xingao98.community.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by xinGao 2020/3/10

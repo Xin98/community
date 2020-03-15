@@ -1,6 +1,6 @@
-create table publish(
-    id BIGINT primary key auto_increment,
-    creater_id varchar(100),
+create table question(
+    id bigint primary key auto_increment,
+    creator_id int,
     title varchar(50),
     detail text,
     tag varchar(256),

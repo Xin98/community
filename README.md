@@ -8,7 +8,8 @@
 [Bootstrap 文档](https://v3.bootcss.com/components/)  
 [okHttp 文档](https://square.github.io/okhttp/)  
 [mybatis 文档](http://mybatis.org/spring/)  
-[lombok 官网](https://projectlombok.org/)
+[lombok 官网](https://projectlombok.org/)  
+[thymeleaf 官方文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 
 ## 脚本
 
@@ -27,9 +28,9 @@ create table user
 alter table user
 	add avatar_url varchar(100);
 
-create table publish(
+create table question(
     id BIGINT primary key auto_increment,
-    creater_id varchar(100),
+    creator_id int,
     title varchar(50),
     detail text,
     tag varchar(256),

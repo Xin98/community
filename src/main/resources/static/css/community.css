@@ -5,6 +5,9 @@ body{
     margin: 30px;
     background: white;
 }
+.main-content{
+    border-right: 1px solid #e6e6e6;
+}
 .btn-publish{
     float: right;
     margin-bottom: 15px;
@@ -14,4 +17,15 @@ body{
     background: red;
     border: #ce8483;
     border-width: 2px;
+}
+
+.media-object{
+    width: 40px;
+    height: 40px;
+}
+
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
 }

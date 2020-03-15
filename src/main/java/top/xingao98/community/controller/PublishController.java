@@ -75,7 +75,7 @@ public class PublishController {
             return "publish";
         }
         Question question = new Question();
-        question.setCreaterId(user.getAccountId());
+        question.setCreatorId(user.getId());
         System.out.println(user.getAccountId());
         question.setTitle(title);
         question.setDetail(detail);

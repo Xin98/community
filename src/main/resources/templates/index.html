@@ -48,15 +48,37 @@
 
 <div class = "container-fluid main">
     <div class = "row">
-        <div class = "col-lg-9 col-md-8 col-sm-12">
+        <div class = "col-lg-9 col-md-8 col-sm-12 main-content">
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
             <hr>
 
-        </div>
+            <tr th:each="question : ${questions}">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-thumbnail" th:src="${question.getUser().getAvatarUrl()}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                        <span th:text="${question.getDetail()}"></span><br>
+                        <span class="text-desc">
+                            <span th:text="${question.getStars()}"></span><span>人关注•</span>
+                            <span th:text="${question.getCommentCount()}"></span><span>人回复•</span>
+                            <span th:text="${question.getViewCount()}"></span><span>人观看•</span>
+                            <span th:text="${#dates.format(question.getGmtCreate(), 'yyyy-MM-dd HH:mm')}"></span><span>创建</span>
+                        </span>
+                    </div>
+                </div>
+                <hr>
+            </tr>
 
+        </div>
+        <!-- 侧边栏 -->
         <div class = "col-lg-3 col-md-4 col-sm-12 ">
             <h3>热门话题</h3>
         </div>
+        <!-- 侧边栏 end -->
     </div>
 </div>
 </body>
