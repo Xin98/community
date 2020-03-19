@@ -8,7 +8,7 @@ import top.xingao98.community.model.User;
  */
 @Data
 public class QuestionDTO {
-    private Integer id;
+    private Long id;
     private String title;
     private String detail;
     private String tag;

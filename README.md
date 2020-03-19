@@ -10,8 +10,8 @@
 [mybatis 文档](http://mybatis.org/spring/)  
 [lombok 官网](https://projectlombok.org/)  
 [thymeleaf 官方文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
-[spring framework > web servlet 官方文档](https://docs.spring.io/spring/docs/5.2.4.RELEASE/spring-framework-reference/web.html#spring-web)
-
+[spring framework > web servlet 官方文档](https://docs.spring.io/spring/docs/5.2.4.RELEASE/spring-framework-reference/web.html#spring-web)  
+[mybatis generator](https://mybatis.org/generator/)  
 ## 脚本
 
 ```sql
@@ -45,3 +45,5 @@ create table question(
     gmt_modified bigint
 );
 ```
+## 命令
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate  

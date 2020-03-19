@@ -32,7 +32,7 @@ public class PublishController {
     public String doPublish(@RequestParam(name = "title", required = false) String title,
                             @RequestParam(name = "detail", required = false) String detail,
                             @RequestParam(name = "tag", required = false) String tag,
-                            @RequestParam(name = "id", required = false) Integer id,
+                            @RequestParam(name = "id", required = false) Long id,
                             HttpServletRequest httpServletRequest,
                             Model model) {
         User user = (User) httpServletRequest.getSession().getAttribute("user");
@@ -69,7 +69,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,
+    public String edit(@PathVariable(name = "id") Long id,
                        Model model) {
         //为了防止任意一个人都可以修改问题
         //这里查询问题时需要添加用户校验
