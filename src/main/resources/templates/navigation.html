@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <nav class="navbar navbar-default" id="community-nav">
-    <div class="container-fluid">
+    <div class="container-fluid shadow-type">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Xin Community</span>
@@ -25,11 +25,10 @@
                     <a href="https://github.com/login/oauth/authorize?client_id=ea5f0bc4017c1b90f3a8&redirect_uri=http://localhost:13140/callback&scope=user&state=1">登录</a></li>
                 <li th:unless="${session.user==null}" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="true" >[[${session.user.getName()}]]<span class="caret"></span></a>
+                       aria-expanded="true" >[[${session.user.name}]]<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
+                        <li><a href="/profile/questions">个人</a></li>
+                        <li><a href="/logout">退出登录</a></li>
                     </ul>
                 </li>
             </ul>

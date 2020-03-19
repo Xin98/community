@@ -9,7 +9,8 @@
 [okHttp 文档](https://square.github.io/okhttp/)  
 [mybatis 文档](http://mybatis.org/spring/)  
 [lombok 官网](https://projectlombok.org/)  
-[thymeleaf 官方文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+[thymeleaf 官方文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)  
+[spring framework > web servlet 官方文档](https://docs.spring.io/spring/docs/5.2.4.RELEASE/spring-framework-reference/web.html#spring-web)
 
 ## 脚本
 

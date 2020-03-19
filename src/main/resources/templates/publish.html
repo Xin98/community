@@ -3,35 +3,36 @@
 <head>
     <title>Publish - Xin Community</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="css/community.css" />
-    <script src="js/jquery-3.4.1.min.js" type="application/javascript"></script>
-    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/css/community.css" />
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
 <!-- 导航栏 begin -->
 <nav th:insert="~{navigation :: #community-nav}"></nav>
 <!-- 导航栏  end  -->
-<div class = "container-fluid main">
+<div class = "container-fluid main shadow-type">
     <div class = "row">
         <div class = "col-lg-9 col-md-8 col-sm-12 main-content">
-            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>提出问题</h2>
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 提出问题</h2>
             <hr>
             <form action="/publish" method="post">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="questionTitle">问题标题(简单扼要):</label>
                     <input type="text" class="form-control" id="questionTitle" name="title" th:value="${title}" placeholder="问题标题">
                 </div>
                 <div class="form-group">
                     <label for="questionDetail">问题补充(必填，请按照右侧/下方提示)</label>
-                    <textarea type="text" class="form-control" id="questionDetail" name="detail" th:text="${detail}" rows="5"></textarea>
+                    <textarea type="text" class="form-control" id="questionDetail" name="detail" th:text="${detail}" rows="16"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="questionTags">添加标签:</label>
                     <input type="text" class="form-control" id="questionTags" name="tag" th:value="${tag}" placeholder="输入标签，以，号分隔">
                 </div>
-                <span class="tips" th:if="${error}!=null">提示:[[${error}]]</span>
+                <span class="tips text-display-padding" th:if="${error}!=null">提示:[[${error}]]</span>
                 <button type="submit" class="btn btn-success btn-publish" style="margin-right: 0px; margin-bottom: 10px">发布</button>
             </form>
         </div>

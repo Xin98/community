@@ -37,6 +37,15 @@ public class PaginationDTO {
         page = (page < 1) ? 1 : (page > totalPages) ? totalPages : page;
         //设置当前页面
         currentPage = page;
+
+        //添加向前向后等按钮
+        hasPreviousPage = (page <= 1) ? false : true;
+        hasNextPage = (page >= totalPages) ? false : true;
+        hasGo2FirstPage = (page <= pageDisplayNum + 1) ? false : true;
+        hasGo2EndPage = (page >= totalPages - pageDisplayNum) ? false : true;
+
+        if(totalPages == 0) return;
+
         //添加pages list
         pages = new ArrayList<>();
         pages.add(page);
@@ -48,10 +57,5 @@ public class PaginationDTO {
                 pages.add(page + i);
             }
         }
-        //添加向前向后等按钮
-        hasPreviousPage = (page == 1) ? false : true;
-        hasNextPage = (page == totalPages) ? false : true;
-        hasGo2FirstPage = (page <= pageDisplayNum + 1) ? false : true;
-        hasGo2EndPage = (page >= totalPages - pageDisplayNum) ? false : true;
     }
 }

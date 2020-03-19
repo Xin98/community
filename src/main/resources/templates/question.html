@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Question - Xin Community</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/css/community.css" />
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<!-- 导航栏 begin -->
+<nav th:insert="~{navigation :: #community-nav}"></nav>
+<!-- 导航栏  end  -->
+<div class = "container-fluid main shadow-type">
+    <div class = "row">
+        <div class = "col-lg-9 col-md-8 col-sm-12 main-content">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3 th:text="${question.title}"></h3>
+                <div class="text-desc">
+                    <span>作者:</span><span th:text="${question.user.name}"></span>
+                    <span>|关注数:</span><span th:text="${question.stars}"></span>
+                    <span>|回复数:</span><span th:text="${question.commentCount}"></span>
+                    <span>|阅读数:</span><span th:text="${question.viewCount}"></span>
+                    <span>|发布时间:</span><span th:text="${#dates.format(question.gmtCreate, 'yyyy-MM-dd HH:mm')}"></span>
+                </div>
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <span th:text="${question.detail}"></span>
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>标签:</span><span th:text="${question.tag}"></span>
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <span th:if="${id==question.user.id}">
+                    <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    <a class="text-desc" th:href="@{/publish/{id}(id=${question.id})}">编辑</a>
+                </span>
+                <hr>
+            </div>
+        </div>
+
+        <div class = "col-lg-3 col-md-4 col-sm-12 ">
+            <div class="media text-display-padding">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-circle" th:src="${question.user.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" >
+                        <a th:text="${question.user.name}"></a>
+                    </h4>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+</body>
+</html>

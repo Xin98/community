@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.xingao98.community.dto.AccessTokenDTO;
 import top.xingao98.community.dto.GithubUser;
-import top.xingao98.community.map.UserMapper;
 import top.xingao98.community.model.User;
 import top.xingao98.community.provider.GithubProvider;
+import top.xingao98.community.service.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @Value("${github.client_id}")
     private String clientId;
@@ -60,10 +60,10 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAvatarUrl(githubUser.getAvatarUrl());
 
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
-            userMapper.insertUser(user);
-            httpServletResponse.addCookie(new Cookie("token",token));
+            userService.insertOrUpdate(user);
+            Cookie cookie = new Cookie("token", token);
+            cookie.setMaxAge(36*60*60);
+            httpServletResponse.addCookie(cookie);
             //httpServletRequest.getSession().setAttribute("githubUser", githubUser);
             System.out.println("登录成功，正在跳转...");
             return "redirect:/";
@@ -73,7 +73,4 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
-
-
-
 }

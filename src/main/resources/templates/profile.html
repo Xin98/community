@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Xin Community</title>
+    <title>Profile - Xin Community</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css" />
@@ -16,7 +16,8 @@
 <div class = "container-fluid main shadow-type">
     <div class = "row">
         <div class = "col-lg-9 col-md-8 col-sm-12 main-content">
-            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 发现</h2>
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span th:text="${sectionName}"></span></h2>
             <hr>
 
             <tr th:each="question : ${paginationDTO.questions}">
@@ -30,9 +31,7 @@
                         <h4 class="media-heading" >
                             <a th:text="${question.title} " th:href="@{/question/{id}(id=${question.id})}"></a>
                         </h4>
-                        <span th:text="${question.detail}"></span><br>
                         <span class="text-desc">
-                            <span th:text="${question.user.name}"></span><span>创作</span>
                             <span th:text="${question.stars}"></span><span>人关注•</span>
                             <span th:text="${question.commentCount}"></span><span>人回复•</span>
                             <span th:text="${question.viewCount}"></span><span>人观看•</span>
@@ -40,32 +39,33 @@
                         </span>
                     </div>
                 </div>
+
             </tr>
             <nav aria-label="Page navigation">
                 <ul class="pagination shadow-type">
-                    <li th:if="${paginationDTO.getHasGo2FirstPage()}">
-                        <a href="/?page=1" aria-label="Previous">
+                    <li th:if="${paginationDTO.hasGo2FirstPage}">
+                        <a th:href="@{/profile/{section}/(page=1,section=${section})}" aria-label="Next">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
-                    <li th:if="${paginationDTO.getHasPreviousPage()}">
-                        <a th:href="@{/(page=${paginationDTO.currentPage - 1})}" aria-label="Previous">
+                    <li th:if="${paginationDTO.hasPreviousPage}">
+                        <a th:href="@{/profile/{section}/(page=${paginationDTO.currentPage - 1},section=${section})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <!--pages begin-->
-                    <li th:each="page:${paginationDTO.getPages()}" th:class="${page == paginationDTO.currentPage}?'active':''">
-                        <a th:href="@{/(page=${page})}" th:text="${page}">
+                    <li th:each="page:${paginationDTO.pages}" th:class="${page == paginationDTO.currentPage}?'active':''">
+                        <a th:href="@{/profile/{section}/(page=${page},section=${section})}" th:text="${page}">
                         </a>
                     </li>
                     <!--pages end-->
-                    <li th:if="${paginationDTO.getHasNextPage()}">
-                        <a th:href="@{/(page=${paginationDTO.currentPage + 1})}" aria-label="Next">
+                    <li th:if="${paginationDTO.hasNextPage}">
+                        <a th:href="@{/profile/{section}/(page=${paginationDTO.currentPage + 1},section=${section})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
-                    <li th:if="${paginationDTO.getHasGo2EndPage()}">
-                        <a th:href="@{/(page=${paginationDTO.totalPages})}" aria-label="Next">
+                    <li th:if="${paginationDTO.hasGo2FirstPage}">
+                        <a th:href="@{/profile/{section}/(page=${paginationDTO.totalPages},section=${section})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -73,11 +73,16 @@
             </nav>
 
         </div>
-        <!-- 侧边栏 -->
+
+
         <div class = "col-lg-3 col-md-4 col-sm-12 ">
-            <h3>热门话题</h3>
+            <div class="list-group profile-nav">
+                <a href="/profile/questions" class="list-group-item" th:classappend="${section=='questions'}?'active':''">我的问题</a>
+                <a href="/profile/replies" class="list-group-item" th:classappend="${section=='replies'}?'active':''">我的回复</a>
+                <a href="/profile/likes" class="list-group-item" th:classappend="${section=='likes'}?'active':''">我的获赞</a>
+                <a href="/profile/stars" class="list-group-item" th:classappend="${section=='stars'}?'active':''">我的关注</a>
+            </div>
         </div>
-        <!-- 侧边栏 end -->
     </div>
 </div>
 </body>
