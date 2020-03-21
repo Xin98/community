@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.xingao98.community.dto.QuestionDTO;
+import top.xingao98.community.exception.CustomizeException;
+import top.xingao98.community.exception.CustomizeExceptionCode;
 import top.xingao98.community.model.Question;
 import top.xingao98.community.model.User;
 import top.xingao98.community.service.QuestionService;
@@ -62,9 +64,8 @@ public class PublishController {
         question.setTag(tag);
         question.setId(id);
         System.out.println(question);
-        questionService.createOrUpdate(question);
-        //questionMapper.create(question);
 
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 
@@ -74,17 +75,10 @@ public class PublishController {
         //为了防止任意一个人都可以修改问题
         //这里查询问题时需要添加用户校验
         QuestionDTO questionDTO = questionService.getById(id);
-        if(questionDTO != null){
-            model.addAttribute("title", questionDTO.getTitle());
-            model.addAttribute("detail", questionDTO.getDetail());
-            model.addAttribute("tag", questionDTO.getTag());
-            model.addAttribute("id",questionDTO.getId());
-            return "publish";
-        }
-        else{
-            //model.addAttribute("error", "问题不存在");
-            return "redirect:/error";
-        }
-
+        model.addAttribute("title", questionDTO.getTitle());
+        model.addAttribute("detail", questionDTO.getDetail());
+        model.addAttribute("tag", questionDTO.getTag());
+        model.addAttribute("id",questionDTO.getId());
+        return "publish";
     }
 }

@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.xingao98.community.dto.PaginationDTO;
 import top.xingao98.community.dto.QuestionDTO;
+import top.xingao98.community.exception.CustomizeException;
+import top.xingao98.community.exception.CustomizeExceptionCode;
 import top.xingao98.community.mapper.QuestionMapper;
+import top.xingao98.community.mapper.QuestionMapperExtension;
 import top.xingao98.community.mapper.UserMapper;
 import top.xingao98.community.model.Question;
 import top.xingao98.community.model.QuestionExample;
@@ -25,6 +28,9 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
     @Autowired
+    private QuestionMapperExtension questionMapperExtension;
+
+    @Autowired
     private UserMapper userMapper;
 
     public PaginationDTO list(Integer page, Integer size) {
@@ -39,7 +45,9 @@ public class QuestionService {
         if (page < 1) page = 1;
         Integer offset = size * (page - 1);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(new QuestionExample(), new RowBounds(offset, size));
+        QuestionExample example = new QuestionExample();
+        example.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example, new RowBounds(offset, size));
         for (Question question : questions) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.selectByPrimaryKey(question.getCreatorId());
@@ -69,6 +77,7 @@ public class QuestionService {
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorIdEqualTo(creatorId);
+        example.setOrderByClause("gmt_create desc");
         List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example, new RowBounds(offset, size));
         for (Question question : questions) {
             QuestionDTO questionDTO = new QuestionDTO();
@@ -85,9 +94,13 @@ public class QuestionService {
         if (question.getId() == null) {
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
             System.out.println("插入成功");
         } else {
+            //添加用户校验 --待验证
+            Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
+            if(dbQuestion != null && dbQuestion.getId() != question.getId())
+                throw new CustomizeException(CustomizeExceptionCode.ACCESS_FORBIDDEN);
             Question updateQuestion = new Question();
             updateQuestion.setGmtModified(System.currentTimeMillis());
             updateQuestion.setTitle(question.getTitle());;
@@ -96,8 +109,11 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, questionExample);
-            System.out.println("id "+ question.getId()+":更新成功");
+            int status = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if(status == 0){
+                throw new CustomizeException(CustomizeExceptionCode.QUESTION_NOT_FOUND);
+            }
+            else System.out.println("id "+ question.getId()+":更新成功");
         }
 
         //questionMapper.findById(question.getId());
@@ -106,9 +122,20 @@ public class QuestionService {
     public QuestionDTO getById(Long id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null){
+            throw new CustomizeException(CustomizeExceptionCode.QUESTION_NOT_FOUND);
+        }
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreatorId());
         questionDTO.setUser(user);
         return questionDTO;
+    }
+
+    public void incView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        //阅读数每次加1
+        question.setViewCount(1);
+        questionMapperExtension.AddViewsById(question);
     }
 }

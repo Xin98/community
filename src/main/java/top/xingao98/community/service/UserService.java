@@ -22,12 +22,12 @@ public class UserService {
         userExample.createCriteria()
                 .andAccountIdEqualTo(user.getAccountId());
         List<User> users = userMapper.selectByExample(userExample);
-        //User dbUser = userMapper.getByAccountId(user.getAccountId());
+        //mybatis sqlSession.selectList不会返回空对象, 所以这里users不会为null
         if(users == null || users.size() == 0){
             //插入
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-            userMapper.insert(user);
+            userMapper.insertSelective(user);
         }
         else{
             //更新
